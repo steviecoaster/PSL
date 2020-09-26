@@ -1,0 +1,24 @@
+function Builder {
+    
+    [cmdletBinding()]
+    param(
+        [parameter(Mandatory, Position = 0)]
+        [scriptblock]
+        $Scriptblock
+    )
+    
+    process {
+
+        $newScript = $Scriptblock.ToString()
+        $newScriptBlock = [scriptblock]::Create($newScript)
+
+        $string = @"
+`"builders`": [
+$(@(& $newScriptBlock) -join ",`n")
+]
+"@
+         return $string
+       
+    }
+    
+}
