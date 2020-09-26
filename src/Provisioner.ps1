@@ -2,22 +2,23 @@ function Provisioner {
     
     [cmdletBinding()]
     param(
-        [parmeter(Mandatory, Position = 0)]
+        [parameter(Mandatory, Position = 0)]
         [scriptblock]
         $Scriptblock
     )
     
     process {
 
-        $newScript = "[ordered]@{$(@($Scriptblock.ToString()))}"
+        $newScript = $Scriptblock.ToString()
         $newScriptBlock = [scriptblock]::Create($newScript)
-    
-       $string = @"
-       provisioners: [
-           $(& $newScriptBlock | ConvertTo-Json)
-       ]  
-"@  
-        return $string
+
+        $string = @"
+        'provisioners': [
+            $(@(& $newScriptBlock) -join ",`n")
+        ]
+"@
+         return $string
+       
     }
     
 }
