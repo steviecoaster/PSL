@@ -13,9 +13,9 @@ function Provisioner {
         $newScriptBlock = [scriptblock]::Create($newScript)
 
         $string = @"
-        'provisioners': [
-            $(@(& $newScriptBlock) -join ",`n")
-        ]
+`"provisioners`": [
+$(@(& $newScriptBlock) -join ",`n")
+]
 "@
          return $string
        
