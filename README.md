@@ -1,4 +1,4 @@
-# Packer DSL
+# PSL - A DSL for Packer
 
 This is a PowerShell module for writing packer configs as a PowerShell DSL. Similar To Pester, PSGraph, PSake, etc.
 
